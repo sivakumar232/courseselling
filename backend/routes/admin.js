@@ -4,7 +4,7 @@ const adminRouter=Router();
 
 adminRouter.post("/login",async(req,res)=>{
     res.json({
-        message:"login endpoint "
+        message:"login endpoint "   
     })
 })
 adminRouter.post("/signup",async(req,res)=>{

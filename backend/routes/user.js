@@ -12,21 +12,21 @@ userRouter.post("/signup",async(req,res)=>{
     })
 })
 
-userRouter.post("/addcourse",async(req,res)=>{
+userRouter.post("/course",async(req,res)=>{
     res.json({
-        message:"add course endpoint "
+        message:"adding user course "
     })
 })
 
-userRouter.put("/addcourse",async(req,res)=>{
+userRouter.put("/course",async(req,res)=>{
     res.json({
-        message:"add course endpoint "
+        message:"updating user course "
     })
 })
 
-userRouter.get("/addcourse",async(req,res)=>{
+userRouter.get("/course",async(req,res)=>{
     res.json({
-        message:"add course endpoint "
+        message:"getting user course "
     })
 })
 module.exports=userRouter;
