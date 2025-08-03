@@ -13,17 +13,17 @@ adminRouter.post("/signup",async(req,res)=>{
         message:"signup endpoint "
     })
 })
-adminRouter.post("/course",async(req,res)=>{
+adminRouter.post("/",async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
 })
-adminRouter.put("/course",async(req,res)=>{
+adminRouter.put("/",async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
 })
-adminRouter.get("/course",async(req,res)=>{
+adminRouter.get("/bulk",async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
