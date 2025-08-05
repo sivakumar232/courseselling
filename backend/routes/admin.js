@@ -28,6 +28,4 @@ adminRouter.get("/bulk",async(req,res)=>{
         message:"add course endpoint "
     })
 })
-
-
 module.exports=adminRouter;
