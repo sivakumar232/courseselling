@@ -6,8 +6,8 @@ const jwt=require("jsonwebtoken");
 require("dotenv").config();
 
 adminRouter.post("/signin",async(req,res)=>{
-    const{email,password,lastname,firstname}=req.body;
-    if(!email||!password||!firstname||!lastname){
+    const{email,password}=req.body;
+    if(!email||!password){
         res.json({
             message:"all feilds are required"
         })
