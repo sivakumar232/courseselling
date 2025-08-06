@@ -7,9 +7,9 @@ const courseRouter = require("./routes/course");
 
 app.use(express.json());
 
-app.use("/admin", adminRouter);
-app.use("/user", userRouter);
-app.use("/course", courseRouter); 
+app.use("/api/admin", adminRouter);
+app.use("/api/user", userRouter);
+app.use("/api/course", courseRouter); 
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

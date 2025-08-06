@@ -1,29 +1,75 @@
 const {Router}=require("express");
 const {adminModel}=require("../db");
-
 const adminRouter=Router();
+const bcrypt=require("bcrypt");
+const jwt=require("jsonwebtoken");
+require("dotenv").config();
 
-adminRouter.post("/login",async(req,res)=>{
-    res.json({
-        message:"login endpoint "   
-    })
+adminRouter.post("/signin",async(req,res)=>{
+    const{email,password,lastname,firstname}=req.body;
+    if(!email||!password||!firstname||!lastname){
+        res.json({
+            message:"all feilds are required"
+        })
+    }
+    const admin =await adminModel.findOne({email});
+    if(admin){
+        const token=jwt.sign({
+            id:admin._id,
+            email:admin.email
+        },process.env.SECRET_KEY);
+        res.json({
+            message:"login success",
+            token:token
+        })
+
+    }else{
+        res.json({
+            message:"Invalid credentials"
+        })
+    }
 })
 adminRouter.post("/signup",async(req,res)=>{
+    const{email,password,firstname,lastname}=req.body;
+    if(!email||!password||!firstname||!lastname){
+        res.json({
+            message:"all feilds are required"
+        })
+    }
+    const salt_rounds=10;
+    try{
+        const existingadmin=await adminModel.findOne({email});
+        if(existingadmin){
+            res.json({
+                message:"user already exist"
+            })
+        }
+    const hashed_password=await bcrypt.hash(password,salt_rounds);
+    const admin=new adminModel({
+        email:email,
+        password:hashed_password,
+        firstname:firstname,
+        lastname:lastname
+    });
+    await admin.save();
     res.json({
-        message:"signup endpoint "
+        message:"admin account created"
     })
+        }catch(err){
+        console.log(err);
+    }
 })
-adminRouter.post("/",async(req,res)=>{
+adminRouter.post("/course",async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
 })
-adminRouter.put("/",async(req,res)=>{
+adminRouter.put("/course",async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
 })
-adminRouter.get("/bulk",async(req,res)=>{
+adminRouter.get("/course/bulk",async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
