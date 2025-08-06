@@ -3,6 +3,7 @@ const {adminModel}=require("../db");
 const adminRouter=Router();
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
+const {adminMiddleware}=require("../middleware/adminmid");
 require("dotenv").config();
 
 adminRouter.post("/signin",async(req,res)=>{
@@ -59,17 +60,17 @@ adminRouter.post("/signup",async(req,res)=>{
         console.log(err);
     }
 })
-adminRouter.post("/course",async(req,res)=>{
+adminRouter.post("/course",adminMiddleware,async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
 })
-adminRouter.put("/course",async(req,res)=>{
+adminRouter.put("/course",adminMiddleware,async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })
 })
-adminRouter.get("/course/bulk",async(req,res)=>{
+adminRouter.get("/course/bulk",adminMiddleware,async(req,res)=>{
     res.json({
         message:"add course endpoint "
     })

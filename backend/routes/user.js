@@ -4,7 +4,7 @@ const jwt=require("jsonwebtoken");
 const bcrypt=require("bcrypt");
 require("dotenv").config();
 const {userModel}=require("../db");
-
+const {userMiddleware}=require("../middleware/usermid");
 userRouter.post("/signin",async(req,res)=>{
     const {email,password}=req.body;
     if(!email||!password){
@@ -51,18 +51,18 @@ userRouter.post("/signup",async(req,res)=>{
         console.log(err);
     }
 })
-userRouter.post("/course",async(req,res)=>{
+userRouter.post("/course",userMiddleware,async(req,res)=>{
     res.json({
         message:"adding user course "
     })
 })
-userRouter.put("/course",async(req,res)=>{
+userRouter.put("/course",userMiddleware,async(req,res)=>{
     res.json({
         message:"updating user course "
     })
 })
 
-userRouter.get("/course",async(req,res)=>{
+userRouter.get("/course",userMiddleware,async(req,res)=>{
     res.json({
         message:"getting user course "
     })
