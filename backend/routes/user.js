@@ -7,7 +7,6 @@ require("dotenv").config();
 const { userModel, purchaseModel } = require("../db");
 const userMiddleware = require("../middleware/usermid"); // ✅ default import
 
-// ---------- SIGNUP ----------
 userRouter.post("/signup", async (req, res) => {
     const { email, password, firstname, lastname } = req.body;
 
@@ -20,7 +19,6 @@ userRouter.post("/signup", async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ message: "User already exists" });
         }
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new userModel({
@@ -39,7 +37,6 @@ userRouter.post("/signup", async (req, res) => {
     }
 });
 
-// ---------- SIGNIN ----------
 userRouter.post("/signin", async (req, res) => {
     const { email, password } = req.body;
 
@@ -74,7 +71,7 @@ userRouter.post("/signin", async (req, res) => {
 });
 
 // ---------- GET PURCHASES ----------
-userRouter.get("/purchases", userMiddleware, async (req, res) => {
+userRouter.get("/mypurchases", userMiddleware, async (req, res) => {
     try {
         const purchases = await purchaseModel.find({ userId: req.userId });
 

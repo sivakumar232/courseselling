@@ -17,4 +17,4 @@ function userMiddleware(req, res, next) {
     }
 }
 
-module.exports = userMiddleware; // ✅ Use default export
+module.exports = userMiddleware; 
