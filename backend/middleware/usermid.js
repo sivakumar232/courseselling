@@ -1,22 +1,20 @@
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const jwt=require("jsonwebtoken");
-function userMiddleware(req,res,next){
-    const token=req.headers.authorization;
-    if(!token){
-        res.json({
-            message:"token is required"            
-        })
+function userMiddleware(req, res, next) {
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).json({ message: "Token is required" });
     }
-    const decoded=jwt.verify(token,process.env.SECRET_KEY);
-    if(decoded){
-        req.userId=decoded.id;
-            next();
-    }
-    else{
-        res.status(403).json({
-            message:"session expired"
-        })
+
+    try {
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        req.userId = decoded.id;
+        next();
+    } catch (err) {
+        return res.status(403).json({ message: "Invalid or expired token" });
     }
 }
 
-module.exports={userMiddleware:userMiddleware}
+module.exports = userMiddleware; // ✅ Use default export
